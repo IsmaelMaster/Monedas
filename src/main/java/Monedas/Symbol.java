@@ -1,6 +1,7 @@
-
+//Integrantes: 
+//Baizabal acosta Ismael
+//Cruz Mendoza Lucero
 package Monedas;
-
 public class Symbol {
     private final String name;
     private final int value;

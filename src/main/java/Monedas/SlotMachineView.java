@@ -1,3 +1,7 @@
+//Programa de un traga monedas
+//Integrantes: 
+//Baizabal acosta Ismael
+//Cruz Mendoza Lucero
 package Monedas;
 import Monedas.Symbol;
 import javax.swing.*;
