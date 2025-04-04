@@ -3,8 +3,8 @@
 //Cruz Mendoza Lucero
 package Monedas;
 public class Symbol {
-    private final String name;
-    private final int value;
+    private final String name; //Nombre lo los simbolos
+    private final int value; //La cantidad de dinero que se gana cuando los tres simbolos son iguales
 
     public Symbol(String name, int value) {
         if (name == null || name.trim().isEmpty()) {

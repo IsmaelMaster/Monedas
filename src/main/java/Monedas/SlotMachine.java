@@ -12,36 +12,43 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class SlotMachine {
-    private final List<Reel> reels;
-    private final ExecutorService executor;
+    private final List<Reel> reels; // Lista de las ruedas del tragamonedas
+    private final ExecutorService executor; // Executor para manejar giros simultáneos
 
     public SlotMachine(int numReels) {
         if (numReels <= 0) {
             throw new IllegalArgumentException("El número de carretes debe ser mayor que cero.");
         }
-
+        
+        // Definir los símbolos disponibles en los carretes
         List<Symbol> symbols = List.of(
             new Symbol("Cherry", 10),
             new Symbol("Lemon", 5),
             new Symbol("Bar", 15),
             new Symbol("Seven", 50)
         );
-
+        
+        // Crear y agregar los carretes con los símbolos
         this.reels = new ArrayList<>();
         for (int i = 0; i < numReels; i++) {
             reels.add(new Reel(symbols));
         }
-
+        
+        // Crear un pool de hilos para manejar los giros de los carretes en paralelo
         this.executor = Executors.newFixedThreadPool(numReels);
     }
 
     public List<Symbol> spinReels() {
         List<Future<Symbol>> futures = new ArrayList<>();
+        
+        // Iniciar los giros de las ruedas en paralelo
         for (Reel reel : reels) {
             futures.add(executor.submit(reel::spin));
         }
 
         List<Symbol> results = new ArrayList<>();
+        
+        // Obtener los resultados de los carretes una vez que terminan de girar
         for (Future<Symbol> future : futures) {
             try {
                 results.add(future.get());

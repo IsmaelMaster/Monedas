@@ -11,46 +11,50 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class SlotMachineView extends JFrame {
-    private final JLabel[] reelLabels;
-    private final JButton spinButton;
-    private final JTextField betField;
-    private final JLabel resultLabel;
-    private final SlotMachine slotMachine;
+    private final JLabel[] reelLabels;  // Etiquetas para mostrar los carretes
+    private final JButton spinButton;   // Botón para girar los ruedas
+    private final JTextField betField;  // Campo de entrada para las apuestas
+    private final JLabel resultLabel;   // Etiqueta para mostrar el resultado del giro
+    private final SlotMachine slotMachine; // Instancia de la lógica del juego
 
     public SlotMachineView(int numReels) {
-        setTitle("Tragamonedas");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setTitle("Tragamonedas"); // Título de la ventana
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar aplicación al cerrar ventana
+        setLayout(new BorderLayout()); // Usar BorderLayout para organizar los componentes
 
         // Inicializar la lógica de la máquina tragamonedas
         slotMachine = new SlotMachine(numReels);
-
+        
+        // Crear panel para mostrar los carretes
         JPanel reelsPanel = new JPanel();
         reelsPanel.setLayout(new GridLayout(1, numReels));
         reelLabels = new JLabel[numReels];
-
+        
+        // Inicializar las etiquetas de las ruedas con el simbolo "?"
         for (int i = 0; i < numReels; i++) {
             reelLabels[i] = new JLabel("?", SwingConstants.CENTER);
             reelLabels[i].setFont(new Font("Arial", Font.BOLD, 24));
             reelsPanel.add(reelLabels[i]);
         }
 
-        add(reelsPanel, BorderLayout.CENTER);
+        add(reelsPanel, BorderLayout.CENTER);  // Agregar panel de carretes al centro
 
         JPanel controlPanel = new JPanel();
-        betField = new JTextField(5);
-        spinButton = new JButton("Girar");
+        betField = new JTextField(5); //Campo para meter la cantidad de la apuesta
+        spinButton = new JButton("Girar"); //Boton para girar las ruedas
         resultLabel = new JLabel("Ingrese su apuesta y gire", SwingConstants.CENTER);
-
+        
+        // Agregar elementos al panel de control
         controlPanel.add(new JLabel("Apuesta: "));
         controlPanel.add(betField);
         controlPanel.add(spinButton);
-
+        
+        // Agregar etiquetas y paneles a la ventana
         add(resultLabel, BorderLayout.NORTH);
         add(controlPanel, BorderLayout.SOUTH);
 
         pack();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 
         // Acción del botón "Girar"
         spinButton.addActionListener(new ActionListener() {
@@ -70,7 +74,7 @@ public class SlotMachineView extends JFrame {
                 return;
             }
 
-            // Girar los carretes
+            // Girar las ruedas
             List<Symbol> results = slotMachine.spinReels();
 
             // Mostrar los resultados en la UI
